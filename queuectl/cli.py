@@ -3,6 +3,7 @@ import click
 import json
 import time
 import logging
+import threading
 from tabulate import tabulate
 
 from queuectl.core.storage import JobStorage
@@ -51,19 +52,36 @@ def enqueue(ctx, command, max_retries, timeout, backoff_base):
 
 @cli.command()
 @click.option('--count', default=1, help='Number of workers to start')
+@click.option('--timeout', type=int, help='Auto-stop after N seconds (optional)')
 @click.pass_context
-def start(ctx, count):
+def start(ctx, count, timeout):
     """Start worker processes"""
     ctx.obj['worker_manager'] = WorkerManager(ctx.obj['queue'])
     ctx.obj['worker_manager'].start_workers(count)
-    click.echo(f"Started {count} worker(s)")
     
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        click.echo("\nShutting down workers...")
-        ctx.obj['worker_manager'].stop_workers()
+    if timeout:
+        click.echo(f"Started {count} worker(s) for {timeout} seconds")
+        click.echo("Workers will auto-stop...")
+        
+        try:
+            time.sleep(timeout)
+            click.echo(f"Workers stopped after {timeout} seconds")
+            ctx.obj['worker_manager'].stop_workers()
+        except KeyboardInterrupt:
+            click.echo("\nStopping workers...")
+            ctx.obj['worker_manager'].stop_workers()
+    else:
+        click.echo(f"Started {count} worker(s)")
+        click.echo("Press Ctrl+C to stop workers and return to command prompt")
+        
+        try:
+            # Keep running but allow Ctrl+C to break out
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            click.echo("\nStopping workers...")
+            ctx.obj['worker_manager'].stop_workers()
+            click.echo("Returning to command prompt...")
 
 @cli.command()
 @click.pass_context
@@ -117,10 +135,11 @@ def list_jobs(ctx, state, limit):
         
         all_jobs = ctx.obj['queue'].storage.get_all_jobs()
         
+        # BUG FIX: Use consistent variable name
         if state:
-            jobs = [job for job in all_jobs.values() if job.state.value == state]
+            job_list = [job for job in all_jobs.values() if job.state.value == state]
         else:
-            job_list = list(all_jobs.values())  # Use different variable name
+            job_list = list(all_jobs.values())
         
         job_list.sort(key=lambda x: x.created_at, reverse=True)
         job_list = job_list[:limit]
@@ -184,7 +203,7 @@ def dlq_list(ctx):
                 error_display = error_text
             
             table_data.append([
-                str(job.id)[:8],
+                str(job.id),
                 command_display,
                 job.attempts,
                 error_display,

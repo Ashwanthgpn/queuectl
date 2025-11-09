@@ -1,6 +1,6 @@
 {
   "max_retries": 5,
-  "backoff_base": 2,
+  "backoff_base": 3,
   "job_timeout": 30,
   "worker_count": 1,
   "storage_path": "queuectl_data",
