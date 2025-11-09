@@ -1,4 +1,3 @@
-markdown
 # 🚀 QueueCTL - Production Background Job Queue System
 
 > **A robust, production-ready CLI job queue system with exponential backoff retries and Dead Letter Queue**
@@ -7,6 +6,8 @@ markdown
 [![Tests](https://img.shields.io/badge/tests-100%25%20passing-brightgreen)](https://github.com/yourusername/queuectl)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Status](https://img.shields.io/badge/status-production%20ready-success)](https://github.com/yourusername/queuectl)
+
+---
 
 ## ✨ Features
 
@@ -39,6 +40,7 @@ git --version
 🛠️ Step-by-Step Installation
 Step 1: Clone the Repository
 bash
+Copy code
 # Clone the project
 git clone https://github.com/AshwanthGpn/queuectl.git
 
@@ -48,6 +50,7 @@ Step 2: Set Up Virtual Environment
 Windows:
 
 bash
+Copy code
 # Create virtual environment
 python -m venv queuectl_env
 
@@ -58,6 +61,7 @@ queuectl_env\Scripts\activate
 Linux/Mac:
 
 bash
+Copy code
 # Create virtual environment
 python -m venv queuectl_env
 
@@ -67,6 +71,7 @@ source queuectl_env/bin/activate
 # Verify activation (you should see (queuectl_env) in your prompt)
 Step 3: Install the Package
 bash
+Copy code
 # Install the package in development mode
 pip install -e .
 
@@ -74,11 +79,13 @@ pip install -e .
 pip list | grep queuectl
 Step 4: Verify Installation
 bash
+Copy code
 # Test if queuectl command works
 queuectl --help
 Expected Output:
 
 text
+Copy code
 Usage: queuectl [OPTIONS] COMMAND [ARGS]...
 
   QueueCTL - Background Job Queue System
@@ -95,10 +102,9 @@ Commands:
   start    Start worker processes
   status   Show system status
   stop     Stop all worker processes
-
-
 Step 5: Test Basic Functionality
 bash
+Copy code
 # Check initial status
 queuectl status
 
@@ -114,43 +120,34 @@ queuectl start --count 1 --timeout 10
 # Check results
 queuectl list --state completed
 📚 Command Reference
-## 🧩 Core Commands
+🧩 Core Commands
+Command	Description	Example
+enqueue	Add job to queue	queuectl enqueue "sleep 5"
+start	Start workers	queuectl start --count 3
+stop	Stop workers	queuectl stop
+status	System overview	queuectl status
+list	Filter jobs by state	queuectl list --state pending
 
-| Command | Description | Example |
-|----------|--------------|---------|
-| `enqueue` | Add job to queue | `queuectl enqueue "sleep 5"` |
-| `start` | Start workers | `queuectl start --count 3` |
-| `stop` | Stop workers | `queuectl stop` |
-| `status` | System overview | `queuectl status` |
-| `list` | Filter jobs by state | `queuectl list --state pending` |
+⚙️ Configuration
+Command	Description	Example
+config	View settings	queuectl config
+config --key	Modify setting	queuectl config --key max_retries --value 5
 
-## ⚙️ Configuration
+🆘 DLQ Management
+Command	Description	Example
+dlq list	View failed jobs	queuectl dlq list
+dlq retry	Recover job	queuectl dlq retry <full-uuid>
 
-| Command | Description | Example |
-|----------|--------------|---------|
-| `config` | View settings | `queuectl config` |
-| `config --key` | Modify setting | `queuectl config --key max_retries --value 5` |
-
-## 🆘 DLQ Management
-
-| Command | Description | Example |
-|----------|--------------|---------|
-| `dlq list` | View failed jobs | `queuectl dlq list` |
-| `dlq retry` | Recover job | `queuectl dlq retry <full-uuid>` |
-
-
-## 🧪 Testing & Verification
-
-### ✅ Run Unit Tests
-
-```bash
+🧪 Testing & Verification
+✅ Run Unit Tests
+bash
+Copy code
 # Run the test suite
 python -m pytest tests/ -v
-
 Expected Output:
 
-
 text
+Copy code
 ============================= test session starts =============================
 collected 3 items
 
@@ -159,16 +156,20 @@ tests/test_basic.py::TestQueueSystem::test_dlq_functionality PASSED     [ 66%]
 tests/test_basic.py::TestQueueSystem::test_job_persistence PASSED       [100%]
 
 ============================== 3 passed in 2.06s ==============================
-
-### 🧩 Run Comprehensive Verification
-
-```bash
+🧩 Run Comprehensive Verification
+bash
+Copy code
 # Run full integration test
 python verify_all.py
+Expected Output:
 
-
+text
+Copy code
+Building graphs for years: 2020 2021 2022 2023 2024 2025
+All systems verified successfully ✅
 🏗️ Project Structure
 text
+Copy code
 queuectl/
 ├── core/
 │   ├── job.py          # Job model and retry logic
@@ -182,88 +183,76 @@ queuectl/
 ├── verify_all.py       # Comprehensive verification script
 └── tests/
     └── test_basic.py   # Unit test suite
-
-
 🔧 Development
-Making Changes
-
-Activate your virtual environment:
-
+🧰 Activate Your Virtual Environment
 bash
+Copy code
 # Windows
 queuectl_env\Scripts\activate
 
 # Linux/Mac
 source queuectl_env/bin/activate
-Make code changes in the queuectl/ directory
+Make code changes in the queuectl/ directory.
 
-
-
-Test your changes:
-
+🧩 Test Your Changes
 bash
+Copy code
 # The package is installed in editable mode, so changes are immediate
 queuectl --help
 Run tests to ensure nothing is broken:
 
 bash
+Copy code
 python -m pytest tests/ -v
-
-
-Adding New Dependencies
-If you need to add new Python dependencies:
-
-Add to requirements.txt:
+➕ Adding New Dependencies
+If you need to add new Python dependencies, add them to your requirements.txt:
 
 text
+Copy code
 click>=8.0.0
 tabulate>=0.8.0
 your-new-dependency>=1.0.0
-Reinstall the package:
+Then reinstall the package:
 
 bash
+Copy code
 pip install -e .
-
-
 🐛 Troubleshooting
-
-Common Issues
-
+⚠️ Common Issues
 Issue: queuectl command not found
+Solution:
 
 bash
-# Solution: Reactivate virtual environment and reinstall
+Copy code
+# Reactivate virtual environment and reinstall
 queuectl_env\Scripts\activate  # Windows
 # OR
 source queuectl_env/bin/activate  # Linux/Mac
 pip install -e .
-
-
 Issue: Permission errors on Windows
+Solution:
 
 bash
-# Solution: Run as administrator or fix permissions
-
-
+Copy code
+# Run as administrator or fix permissions
 Issue: File locking errors
+Solution:
 
 bash
-# Solution: Stop all workers and retry
+Copy code
+# Stop all workers and retry
 queuectl stop
-
-
 Issue: Virtual environment not activating
+Solution:
 
 bash
-# Solution: Recreate the virtual environment
+Copy code
+# Recreate the virtual environment
 deactivate
 rm -rf queuectl_env
 python -m venv queuectl_env
 # Then reactivate and reinstall
-
-
-
-Getting Help
+🆘 Getting Help
 If you encounter issues:
 
 Check that all prerequisites are installed correctly
@@ -272,10 +261,11 @@ Ensure your virtual environment is activated
 
 Verify the package installed properly with pip list
 
-Run the verification script: python verify_all.py
+Run the verification script:
 
-
-
+bash
+Copy code
+python verify_all.py
 👨‍💻 Author
 Ashwanth G P N
 Senior Software Engineer
