@@ -342,7 +342,7 @@ If you encounter issues:
 **Ashwanth G P N**  
 Senior Software Engineer
 
-[GitHub](https://github.com/AshwanthGpn) • [LinkedIn](https://linkedin.com/in/ashwanth-gpn)
+[GitHub](https://github.com/AshwanthGpn) • [LinkedIn](www.linkedin.com/in/ashwanth-gpn-ab53aa2a7)
 
 ---
 
