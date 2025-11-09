@@ -4,7 +4,6 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
 [![Tests](https://img.shields.io/badge/tests-100%25%20passing-brightgreen)](https://github.com/AshwanthGpn/queuectl)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Status](https://img.shields.io/badge/status-production%20ready-success)](https://github.com/AshwanthGpn/queuectl)
 
 ---
