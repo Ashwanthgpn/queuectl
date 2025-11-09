@@ -114,30 +114,41 @@ queuectl start --count 1 --timeout 10
 # Check results
 queuectl list --state completed
 📚 Command Reference
-🎪 Core Commands
-Command	Description	Example
-enqueue	Add job to queue	queuectl enqueue "sleep 5"
-start	Start workers	queuectl start --count 3
-stop	Stop workers	queuectl stop
-status	System overview	queuectl status
-list	Filter jobs by state	queuectl list --state pending
-⚙️ Configuration
-Command	Description	Example
-config	View settings	queuectl config
-config --key	Modify setting	queuectl config --key max_retries --value 5
-🆘 DLQ Management
-Command	Description	Example
-dlq list	View failed jobs	queuectl dlq list
-dlq retry	Recover job	queuectl dlq retry <full-uuid>
+## 🧩 Core Commands
+
+| Command | Description | Example |
+|----------|--------------|---------|
+| `enqueue` | Add job to queue | `queuectl enqueue "sleep 5"` |
+| `start` | Start workers | `queuectl start --count 3` |
+| `stop` | Stop workers | `queuectl stop` |
+| `status` | System overview | `queuectl status` |
+| `list` | Filter jobs by state | `queuectl list --state pending` |
+
+## ⚙️ Configuration
+
+| Command | Description | Example |
+|----------|--------------|---------|
+| `config` | View settings | `queuectl config` |
+| `config --key` | Modify setting | `queuectl config --key max_retries --value 5` |
+
+## 🆘 DLQ Management
+
+| Command | Description | Example |
+|----------|--------------|---------|
+| `dlq list` | View failed jobs | `queuectl dlq list` |
+| `dlq retry` | Recover job | `queuectl dlq retry <full-uuid>` |
 
 
+## 🧪 Testing & Verification
 
-🧪 Testing & Verification
-Run Unit Tests
-bash
+### ✅ Run Unit Tests
+
+```bash
 # Run the test suite
 python -m pytest tests/ -v
+
 Expected Output:
+
 
 text
 ============================= test session starts =============================
@@ -148,8 +159,10 @@ tests/test_basic.py::TestQueueSystem::test_dlq_functionality PASSED     [ 66%]
 tests/test_basic.py::TestQueueSystem::test_job_persistence PASSED       [100%]
 
 ============================== 3 passed in 2.06s ==============================
-Run Comprehensive Verification
-bash
+
+### 🧩 Run Comprehensive Verification
+
+```bash
 # Run full integration test
 python verify_all.py
 
@@ -173,6 +186,7 @@ queuectl/
 
 🔧 Development
 Making Changes
+
 Activate your virtual environment:
 
 bash
